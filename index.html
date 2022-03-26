@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<body>
+<button>add</button>
+
+<div class="content container">
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">price</th>
+            <th scope="col">gender</th>
+            <th scope="col">type</th>
+        </tr>
+        </thead>
+        <tbody class="main_table">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded",function (){
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange= function (){
+            if (this.readyState === 4){
+                if (this.status === 200){
+                    var data = JSON.parse(this.responseText)
+                    for (let i = 0; i < data.length; i++) {
+                        document.querySelector('.main_table').innerHTML += `<tr>
+            <th scope="row">${data[i].name}</th>
+            <td>${data[i].price}</td>
+            <td>${data[i].gender}</td>
+            <td>${data[i].type}</td>
+        </tr>`
+                    }
+                    console.log(data)
+
+                }
+            }
+        }
+        xhr.open('GET','https://hieuhmph12287-lab5.herokuapp.com/products/getProducts?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjIzYWQyMTMxMzhiNjUwMDIzNmMwZGM1IiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0ODI2MDMyOCwiZXhwIjoxNjQ4MzQ2NzI4fQ.N3mmhoK-2E8pFR9RlOSwKZ9GyWZNUv9LCjlJ5A69fBE')
+        xhr.send()
+    })
+</script>
+</body>
+</html>
